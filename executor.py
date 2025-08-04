@@ -41,9 +41,27 @@ def _press(args: str) -> None:
 def _type(args: str) -> None:
     pyautogui.typewrite(list(args))
 
+'''
 def _hotkey(args: str) -> None:
     keys = [to_pyautogui(k.strip()) for k in args.split(",")]
     pyautogui.hotkey(*keys)
+'''
+
+def _hotkey(params: str) -> None:
+    """
+    Simultaneous hotkey press: press all keys, then release all keys.
+    Mimics NutJS-like key chord (not sequential press).
+    """
+    keys = [to_pyautogui(k.strip()) for k in params.split(",")]
+
+    # Press all keys
+    for key in keys:
+        pyautogui.keyDown(key)
+
+    # Release all keys (in reverse)
+    for key in reversed(keys):
+        pyautogui.keyUp(key)
+
 
 def _type_clip(args: str) -> None:
     pyperclip.copy(args)
