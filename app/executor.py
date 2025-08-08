@@ -9,7 +9,7 @@ import time
 import pyautogui
 import pyperclip                   # for type‑by‑clipboard
 from typing import Callable, Dict
-from keymap import to_pyautogui
+from app.keymap import to_pyautogui
 
 pyautogui.FAILSAFE = True          # move mouse to top‑left to abort
 pyautogui.PAUSE    = 0.05          # small delay after each action

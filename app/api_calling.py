@@ -52,3 +52,30 @@ def icon_locator(icon_path: str = "icon.png",
         screenshot_path = _capture_screen()
     endpoint = "/match/exact" if mode == "exact" else "/match/scale"
     return _call(endpoint, screenshot_path, icon_path)
+
+
+import sys  # ensure this is imported at the top of api_calling.py
+
+def icon_click(icon_path: str = "icon.png", mode: str = "exact") -> tuple[int, int] | None:
+    """
+    Locate `icon_path` using `icon_locator` and click the first match.
+
+    - mode: "exact" or "scale" (passed through to icon_locator)
+    - On macOS (sys.platform == 'darwin'), the coordinates are halved to
+      account for Retina scaling before clicking.
+
+    Returns:
+        (x, y) of the position clicked, or None if the icon is not found.
+    """
+    centres = icon_locator(icon_path=icon_path, mode=mode)
+    if not centres:
+        return None
+
+    x, y = centres[0]
+    if sys.platform == "darwin":
+        x, y = int(x / 2), int(y / 2)
+
+    # Prefer the project’s executor so clicks go through the same action path
+    from executor import gui_execute
+    gui_execute(f"click:{x},{y}")
+    return (x, y)
