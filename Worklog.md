@@ -44,3 +44,7 @@ def _hotkey(params: str) -> None:
 The hotkey(cmd,N) for pyautogui to execute is functioning like Shift+Command+N on Macbook keyboard. 
 We should type like hotkey(cmd,n) if we only want Command+N.
 
+
+20250808 1608 PT
+Move other things into package app, and add a wrap of icon_locator named icon_click to directly click icon position.
+
