@@ -1,6 +1,6 @@
 
 To install:
-
+On MacOS
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
